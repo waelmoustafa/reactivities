@@ -11,7 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
 using Persistence;
+using Application.Activities;
+
 namespace API
 {
     public class Startup
@@ -29,6 +32,9 @@ namespace API
             services.AddDbContext<DataContext>(opt => {
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+            
+            services.AddMediatR(typeof(List.Handler).Assembly);
+            
             services.AddControllers();
         }
 
